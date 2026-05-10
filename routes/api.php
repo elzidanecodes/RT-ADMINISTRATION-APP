@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BillController;
+use App\Http\Controllers\Api\ExpenseCategoryController;
+use App\Http\Controllers\Api\ExpenseController;
 use App\Http\Controllers\Api\HouseController;
 use App\Http\Controllers\Api\PaymentController;
+use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\ResidentController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,4 +43,18 @@ Route::middleware('auth:sanctum')->group(function () {
     // Payments
     Route::post('payments/pay-annual', [PaymentController::class, 'payAnnual']);
     Route::apiResource('payments', PaymentController::class)->only(['index', 'store']);
+
+    // Expense categories
+    Route::apiResource('expense-categories', ExpenseCategoryController::class)
+        ->only(['index', 'store', 'update', 'destroy']);
+
+    // Expenses
+    Route::apiResource('expenses', ExpenseController::class);
+
+    // Reports
+    Route::prefix('reports')->group(function () {
+        Route::get('annual-chart',      [ReportController::class, 'annualChart']);
+        Route::get('monthly-detail',    [ReportController::class, 'monthlyDetail']);
+        Route::get('dashboard-summary', [ReportController::class, 'dashboardSummary']);
+    });
 });
