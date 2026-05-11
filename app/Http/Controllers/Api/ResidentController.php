@@ -17,7 +17,7 @@ class ResidentController extends Controller
 
     public function index(Request $request): JsonResponse
     {
-        $residents = Resident::query()
+        $residents = Resident::with('currentHouse')
             ->when($request->search, fn ($q, $s) => $q->where('full_name', 'like', "%{$s}%")
                 ->orWhere('phone_number', 'like', "%{$s}%"))
             ->when($request->resident_type, fn ($q, $t) => $q->where('resident_type', $t))
