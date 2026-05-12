@@ -19,7 +19,7 @@ class UpdateExpenseRequest extends FormRequest
             'amount'              => ['sometimes', 'numeric', 'min:1'],
             'expense_date'        => ['sometimes', 'date', 'date_format:Y-m-d'],
             'description'         => ['nullable', 'string'],
-            'receipt_photo'       => ['nullable', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2048'],
+            'receipt_photo'       => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,pdf', 'max:2048'],
         ];
     }
 }
